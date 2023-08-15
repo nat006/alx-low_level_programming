@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 /**
-*main - Program that prints alphabet
+*print_alphabet - Program that prints alphabet
 *Return: 0 (success)
 */
 void print_alphabet(void)

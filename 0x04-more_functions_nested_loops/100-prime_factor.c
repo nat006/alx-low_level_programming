@@ -1,6 +1,6 @@
 #include <stdio.h>
 /**
-*main - finds and prints the largest prime factor of the number 612852475143 
+*main - finds and prints the largest prime factor of the number 612852475143
 *Return: 0
 */
 int main(void)
@@ -13,7 +13,7 @@ if ((prime % 2) == 0)
 prime /= 2;
 continue;
 }
-for (divisor = 3; divisor < (prime /2); divisor += 2)
+for (divisor = 3; divisor < (prime / 2); divisor += 2)
 {
 if ((prime % divisor) == 0)
 prime /= divisor;

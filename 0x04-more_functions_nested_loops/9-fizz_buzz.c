@@ -1,27 +1,22 @@
 #include <stdio.h>
 /**
 *main - prints numbers (1 to 100) in multiples of three
-*Fizz is printed instead of the number, for multiples of five
-*Buzz is printed for both three and five
 *Return: 0
 */
 int main(void)
 {
-int num;
-for (num = 1; num <= 100; num++)
+int i;
+for (i = 1; i <= 100; i++)
 {
-if ((num % 3) == 0 && (num % 5) == 0)
-printf("FizzBuzz");
-else if ((num % 3) == 0)
-printf("Fizz");
-else if ((num % 5) == 0)
-printf("Buzz");
+if ((i % 3 == 0) && (i % 5 == 0))
+printf("%s", "FizzBuzz");
+else if (i % 3 == 0)
+printf("%s", "Fizz");
+else if (i % 5 == 0)
+printf("%s", "Buzz");
 else
-printf("%d", num);
-if (num == 100)
-continue;
-printf(" ");
+printf("%d", i);
 }
-printf("/n");
+printf("\n");
 return (0);
 }

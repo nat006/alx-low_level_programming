@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "dog.h"
-
+#include <string.h>
 /**
  * new_dog - creates new struct & initializes its variables with given values
  * @name: pointer to null-terminated string that represents the name of the dog

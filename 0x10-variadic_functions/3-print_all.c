@@ -1,91 +1,45 @@
-#include "variadic_functions.h"
-#include <stdarg.h>
 #include <stdio.h>
-
+#include <stdarg.h>
+#include "variadic_functions.h"
 /**
- * print_all - prints anything
- * @format: list of types of arguments passed to the function
- * c: char
- * i: integer
- * f: float
- * s: char* (if string is NULL, print (nil) instead
- * any other char should be ignored
+ * print_all - Prints arguments based on the provided format string
+ * @format: The format string containing types of arguments
  */
 void print_all(const char * const format, ...)
 {
-	va_list args;
-	unsigned int i = 0, j;
-	char *separator = "";
-	print_fun types[] = {
-		{'c', print_char},
-		{'i', print_int},
-		{'f', print_float},
-		{'s', print_string},
-		{'\0', NULL}
-	};
-
-	va_start(args, format);
-	while (format && format[i])
-	{
-		j = 0;
-		while (types[j].type)
-		{
-			if (types[j].type == format[i])
-			{
-				printf("%s", separator);
-				types[j].func(args);
-				separator = ", ";
-				break;
-			}
-			j++;
-		}
-		i++;
-	}
-	va_end(args);
-
-	printf("\n");
-}
-
-/**
- * print_char - prints char
- * @args: va_list that contains the char to print
- */
-void print_char(va_list args)
+int i = 0;
+char *str, *sep = "";
+va_list list;
+va_start(list, format);
+if (format)
 {
-	printf("%c", va_arg(args, int));
-}
-
-/**
- * print_int - prints integer
- * @args: va_list that contains the integer to print
- */
-void print_int(va_list args)
+while (format[i])
 {
-	printf("%d", va_arg(args, int));
-}
-
-/**
- * print_float - prints float
- * @args: va_list that contains the float to print
- */
-void print_float(va_list args)
+switch (format[i])
 {
-	printf("%f", va_arg(args, double));
+case 'c':
+printf("%s%c", sep, va_arg(list, int));
+break;
+case 'i':
+printf("%s%d", sep, va_arg(list, int));
+break;
+case 'f':
+printf("%s%f", sep, va_arg(list, double));
+break;
+case 's':
+str = va_arg(list, char *);
+if (!str)
+str = "(nil)";
+printf("%s%s", sep, str);
+break;
+default:
+i++;
+continue;
 }
-
-/**
- * print_string - prints string
- * @args: va_list that contains the string to print
- */
-void print_string(va_list args)
-{
-	char *str;
-
-	str = va_arg(args, char *);
-	if (str == NULL)
-	{
-		printf("(nil)");
-		return;
-	}
-	printf("%s", str);
+sep = ", ";
+i++;
+}
+}
+printf("\n");
+va_end(list);
 }

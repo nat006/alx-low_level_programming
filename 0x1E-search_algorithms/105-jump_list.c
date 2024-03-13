@@ -1,38 +1,44 @@
 #include "search_algos.h"
-
+#include <math.h>
 /**
- * jump_list - Search for val in sorted list of ints using Jump search algo
- * @list: Pointer to the head of the list
+ * jump_list - Searches for a value in a sorted linked list using jump search
+ * @list: Pointer to the head of the linked list
  * @size: Number of nodes in the list
  * @value: Value to search for
- *
- * Return: Pointer to first node where value is located or NULL if not found
+ * Return: Pointer to the node containing the value or NULL if not found
  */
 listint_t *jump_list(listint_t *list, size_t size, int value)
 {
+int jump, i;
 listint_t *current, *prev;
-size_t jump, i;
-if (list == NULL)
+if (list == NULL || size == 0)
 return (NULL);
-jump = sqrt(size);
+jump = (int)sqrt(size);
 current = list;
 prev = NULL;
-while (current->n < value)
+while (current->next && current->n < value)
 {
 prev = current;
-for (i = 0; current->next != NULL && i < jump; i++)
-current = current->next;
-printf("Value checked at index [%lu] = [%d]\n", current->n, current->n);
-if (i < jump)
-break;
-}
-printf("Value found between indexes [%lu] and [%lu]\n", prev->n, current->n);
-while (prev != NULL && prev->n <= current->n)
+for (i = 0; current->next && i < jump; i++)
 {
-printf("Value checked at index [%lu] = [%d]\n", prev->n, prev->n);
-if (prev->n == value)
-return (prev);
+current = current->next;
+}
+printf("Value checked [%lu] = [%d]\n", (unsigned long)current->n, current->n);
+}
+printf("Value found between [%lu] and [%lu]\n", (unsigned long)prev->n, (unsigned long)current->n);
+printf("Value checked [%lu] = [%d]\n", (unsigned long)prev->n, prev->n);
+while (prev && prev->n < value)
+{
+printf("Value checked at index [%lu] = [%d]\n", (unsigned long)prev->n, prev->n);
+if (prev->next)
 prev = prev->next;
+else
+return (NULL);
+}
+if (prev->n == value)
+{
+printf("Value checked at index [%lu] = [%d]\n", (unsigned long)prev->n, prev->n);
+return (prev);
 }
 return (NULL);
 }
